@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id                         Int                   @id @default(autoincrement())
+  uuid                       String                @unique @default(uuid()) @db.VarChar(150)
+  createdBy                  String                @db.VarChar(100)
+  updatedBy                  String                @db.VarChar(100)
+  createdAt                  DateTime              @default(now()) @map("created_at")
+  updatedAt                  DateTime              @updatedAt @map("updated_at")
+  roleId                     Int
+  fullName                   String                @db.VarChar(150)
+  email                      String                @unique @db.VarChar(150)
+  mobilePhone                String?               @db.VarChar(20)
+  password                   String                @db.VarChar(150)
+  salt                       String                @db.VarChar(150)
+  role                       Roles                 @relation(fields: [roleId], references: [id])
+  verificationCode           String?               @db.VarChar(350)     @unique
+  provider                   String?               @db.VarChar(350)
+  passwordResetToken         String?               @db.VarChar(100)
+  passwordResetAt            DateTime?
+
+  @@unique([email, verificationCode, passwordResetToken])
+  @@index([roleId], map: "users_roleId_fkey")
+  @@map("users")
+}
+
+model Module {
+  id          Int                @id @default(autoincrement())
+  uuid        String             @unique @default(uuid()) @db.VarChar(60)
+  createdBy   String             @db.VarChar(100)
+  updatedBy   String             @db.VarChar(100)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @default(now())
+  feature     String             @unique @db.VarChar(150)
+  description String?            @db.VarChar(300)
+  uri         String             @db.VarChar(300)
+  parentId    Int                @default(0)
+  treeStatus  String             @default("H") @db.VarChar(1)
+  icon        String?            @db.VarChar(100)
+  isVisible   Int                @default(1) @db.TinyInt
+  sequence    Int?
+  modul       ModulePermission[]
+
+  @@map("module")
+}
+
+model ModulePermission {
+  id            Int           @id @default(autoincrement())
+  uuid          String        @unique @default(uuid()) @db.VarChar(60)
+  createdBy     String        @db.VarChar(100)
+  updatedBy     String        @db.VarChar(100)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now())
+  modulId       Int
+  roleId        Int
+  createRight   Int           @default(0) @db.TinyInt
+  readRight     Int           @default(1) @db.TinyInt
+  updateRight   Int           @default(0) @db.TinyInt
+  deleteRight   Int           @default(0) @db.TinyInt
+  inactiveRight Int           @default(0) @db.TinyInt
+  module        Module        @relation(fields: [modulId], references: [id])
+  role          Roles         @relation(fields: [roleId], references: [id])
+
+  @@index([modulId], map: "modulePermission_modulId_fkey")
+  @@index([roleId], map: "modulePermission_roleId_fkey")
+  @@map("modulePermission")
+}
+
+model Roles {
+  id        Int                @id @default(autoincrement())
+  uuid      String             @unique @default(uuid()) @db.VarChar(60)
+  createdBy String             @db.VarChar(100)
+  updatedBy String             @db.VarChar(100)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @default(now())
+  roleName  String             @unique @db.VarChar(150)
+  role2     ModulePermission[]
+  role      Users[]
+
+  @@map("roles")
+}
+

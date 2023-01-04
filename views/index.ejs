@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./layouts/head'); %>
+</head>
+<body>
+  <div class="page">
+    <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+      <%- include('./layouts/side'); %>
+    </aside>
+    <%- include('./layouts/header1'); %>
+    
+    <div class="page-wrapper">
+      <div class="container-xl">
+        <%- include('layouts/header2'); %>
+      </div>
+      <div class="page-body">
+        <div class="container-xl">
+          <div class="row row-deck row-cards">
+            
+            
+
+          </div>
+        </div>
+
+      </div>
+      <footer class="footer footer-transparent d-print-none">
+        <%- include('layouts/footer'); %>
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal modal-blur fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Leave Request</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="frmEdit" class="card card-md" method="POST" action="" autocomplete="off">
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="hidden" name="uuid" id="uuid" class="uuid" >
+                        <input type="hidden" name="employee_id" id="employee_id" class="employee-id" >
+                        <input type="hidden" name="days" id="days" class="days" >
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="text" class="form-control full-name" name="full_name" id="full_name" placeholder="Name of Employee" disabled>
+                    </div>   
+                </div> 
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <textarea class="form-control leave-description" name="leave_description" id="leave_description" maxlength="300" disabled></textarea>
+                  </div>
+                </div>                
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Start Duration</label>
+                      <input type="text" class="form-control start-duration" name="start_duration" id="start_duration" disabled>
+                  </div>
+                </div>            
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">End Duration</label>
+                      <input type="text" class="form-control end-duration" name="end_duration" id="end_duration" disabled>
+                  </div>
+                </div>            
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Days</label>
+                      <input type="text" class="form-control days2" name="days2" id="days2" disabled>
+                  </div>
+                </div>    
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Leave Type</label>
+                      <input type="text" class="form-control leave-type-description" name="leave_type_description" id="leave_type_description" disabled>
+                  </div>
+                </div>                    
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Request Status ?</label>
+                        <select name="is_approved" id="is_approved" class="form-control is-approved" disabled>
+                            <option value="0">Open</option>
+                            <option value="1">Approved</option>
+                            <option value="2">Not Approved</option>                            
+                        </select>
+                    </div>
+                </div>   
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Approved Date</label>
+                      <input type="text" class="form-control approved-date" placeholder="DD-MM-YYYY" name="approved_date" id="approved_date" disabled>
+                  </div>
+                </div>            
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Comments</label>
+                      <textarea class="form-control comments" name="comments" id="comments" placeholder="Comments" maxlength="300" disabled></textarea>
+                  </div>
+                </div>                  
+            </div>
+          </div>
+        
+          <div class="modal-footer">
+            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal-blur fade" id="modal-edit2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Leave Request</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="frmEdit" class="card card-md" method="POST" action="" autocomplete="off">
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="hidden" name="uuid" id="uuid" class="uuid" >
+                        <input type="hidden" name="employee_id" id="employee_id" class="employee-id" >
+                        <input type="hidden" name="days" id="days" class="days" >
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="text" class="form-control full-name" name="full_name" id="full_name" placeholder="Name of Employee" disabled>
+                    </div>   
+                </div> 
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <textarea class="form-control leave-description" name="leave_description" id="leave_description" maxlength="300" disabled></textarea>
+                  </div>
+                </div>                
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Start Duration</label>
+                      <input type="text" class="form-control start-duration" name="start_duration" id="start_duration" disabled>
+                  </div>
+                </div>            
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">End Duration</label>
+                      <input type="text" class="form-control end-duration" name="end_duration" id="end_duration" disabled>
+                  </div>
+                </div>            
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Days</label>
+                      <input type="text" class="form-control days2" name="days2" id="days2" disabled>
+                  </div>
+                </div>            
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Leave Type</label>
+                      <input type="text" class="form-control leave-type-description" name="leave_type_description" id="leave_type_description" disabled>
+                  </div>
+                </div>            
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label class="form-label">Request Status ?</label>
+                        <select name="is_approved" id="is_approved" class="form-control is-approved" disabled>
+                            <option value="0">Open</option>
+                            <option value="1">Approved</option>
+                            <option value="2">Not Approved</option>                            
+                        </select>
+                    </div>
+                </div>   
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Approved Date</label>
+                      <input type="text" class="form-control approved-date" placeholder="DD-MM-YYYY" name="approved_date" id="approved_date" disabled>
+                  </div>
+                </div>            
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                      <label class="form-label">Comments</label>
+                      <textarea class="form-control comments" name="comments" id="comments" placeholder="Comments" maxlength="300" disabled></textarea>
+                  </div>
+                </div>                  
+            </div>
+          </div>
+        
+          <div class="modal-footer">
+            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabler Core -->
+  <script src="assets/tabler/js/tabler.min.js"></script>
+  <script src="assets/tabler/js/demo.min.js"></script>
+
+  <script>
+    var editModal = document.getElementById('modal-edit');
+    editModal.addEventListener('show.bs.modal', function (event) {
+      // Button that triggered the modal
+      var button = event.relatedTarget
+      // Extract info from data-bs-* attributes
+      var uuid = button.getAttribute('data-uuid')
+
+      let url = '/annual-leave-by-uuid/' + uuid;
+      fetch(url)
+        .then(res => res.json())
+        .then(json => {
+          let modalEmployeeUuid = editModal.querySelector(".uuid");      
+          let modalEmployeeId = editModal.querySelector(".employee-id");
+          let modalEmployeeName = editModal.querySelector(".full-name");
+          let modalJointDate = editModal.querySelector(".approved-date");
+          let modalStartDuration = editModal.querySelector(".start-duration");
+          let modalEndDuration = editModal.querySelector(".end-duration");
+          let modalDays = editModal.querySelector(".days");
+          let modalDays2 = editModal.querySelector(".days2");
+          let modalIsApproved = editModal.querySelector(".is-approved");
+          let modalLeaveDescription = editModal.querySelector(".leave-description");
+          let modalLeaveTypeDescription = editModal.querySelector(".leave-type-description");
+          let modalApprovedDate = editModal.querySelector(".approved-date");
+          let modalComments = editModal.querySelector(".comments");
+
+          modalEmployeeUuid.value = json.data[0].uuid;
+          modalEmployeeId.value = json.data[0].employeeId;
+          modalEmployeeName.value = json.data[0].fullName;
+          const [yearStartDuration, monthStartDuration, dayStartDuration] = json.data[0].startDuration.split('-');
+          const startDurationDDMMYY = `${dayStartDuration.slice(0, 2)}-${monthStartDuration}-${yearStartDuration}`;
+          modalStartDuration.value = startDurationDDMMYY;
+
+          const [yearEndDuration, monthEndDuration, dayEndDuration] = json.data[0].endDuration.split('-');
+          const endDurationDDMMYY = `${dayEndDuration.slice(0, 2)}-${monthEndDuration}-${yearEndDuration}`;
+          modalEndDuration.value = endDurationDDMMYY;
+          modalDays.value = json.data[0].days;
+          modalDays2.value = json.data[0].days;
+          modalIsApproved.value = json.data[0].isApproved;
+          modalLeaveDescription.value = json.data[0].leaveDescription;
+          modalLeaveTypeDescription.value = json.data[0].leaveTypeDescription;
+          if (json.data[0].approvedDate){
+            const [YearApprovedDate, monthApprovedDate, dayApprovedDate] = json.data[0].approvedDate.split('-');
+            const approvedDate = `${dayApprovedDate.slice(0, 2)}-${monthApprovedDate}-${YearApprovedDate}`;
+            modalApprovedDate.value = approvedDate;
+          }
+          modalComments.value = json.data[0].commentsBySupervisor;
+        })
+    })
+
+    var editModal2 = document.getElementById('modal-edit2');
+    editModal2.addEventListener('show.bs.modal', function (event) {
+      // Button that triggered the modal
+      var button = event.relatedTarget
+      // Extract info from data-bs-* attributes
+      var uuid = button.getAttribute('data-uuid')
+
+      let url = '/other-leave-by-uuid/' + uuid;
+      fetch(url)
+        .then(res => res.json())
+        .then(json => {
+          let modalEmployeeUuid = editModal2.querySelector(".uuid");      
+          let modalEmployeeId = editModal2.querySelector(".employee-id");
+          let modalEmployeeName = editModal2.querySelector(".full-name");
+          let modalJointDate = editModal2.querySelector(".approved-date");
+          let modalStartDuration = editModal2.querySelector(".start-duration");
+          let modalEndDuration = editModal2.querySelector(".end-duration");
+          let modalDays = editModal2.querySelector(".days");
+          let modalDays2 = editModal2.querySelector(".days2");
+          let modalIsApproved = editModal2.querySelector(".is-approved");
+          let modalLeaveDescription = editModal2.querySelector(".leave-description");
+          let modalLeaveTypeDescription = editModal2.querySelector(".leave-type-description");
+          let modalApprovedDate = editModal2.querySelector(".approved-date");
+          let modalComments = editModal2.querySelector(".comments");
+
+          modalEmployeeUuid.value = json.data[0].uuid;
+          modalEmployeeId.value = json.data[0].employeeId;
+          modalEmployeeName.value = json.data[0].fullName;
+          const [yearStartDuration, monthStartDuration, dayStartDuration] = json.data[0].startDuration.split('-');
+          const startDurationDDMMYY = `${dayStartDuration.slice(0, 2)}-${monthStartDuration}-${yearStartDuration}`;
+          modalStartDuration.value = startDurationDDMMYY;
+
+          const [yearEndDuration, monthEndDuration, dayEndDuration] = json.data[0].endDuration.split('-');
+          const endDurationDDMMYY = `${dayEndDuration.slice(0, 2)}-${monthEndDuration}-${yearEndDuration}`;
+          modalEndDuration.value = endDurationDDMMYY;
+          modalDays.value = json.data[0].days;
+          modalDays2.value = json.data[0].days;
+          modalIsApproved.value = json.data[0].isApproved;
+          modalLeaveDescription.value = json.data[0].leaveDescription;
+          modalLeaveTypeDescription.value = json.data[0].otherleaveTypeDescription;
+          if (json.data[0].approvedDate){
+            const [YearApprovedDate, monthApprovedDate, dayApprovedDate] = json.data[0].approvedDate.split('-');
+            const approvedDate = `${dayApprovedDate.slice(0, 2)}-${monthApprovedDate}-${YearApprovedDate}`;
+            modalApprovedDate.value = approvedDate;
+          }
+          modalComments.value = json.data[0].commentsBySupervisor;
+        })
+    })
+  </script>
+</body>
+</html>
