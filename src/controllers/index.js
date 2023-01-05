@@ -1,4 +1,3 @@
-//const { User } = require("../models");
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
@@ -17,7 +16,6 @@ exports.Signup = async (req, res) => {
         //generate the hashed version of users password
         const hashed_password = await bcrypt.hash(password, salt);
 
-        //const user = await User.create({ email, password: hashed_password });
         const user = await prisma.users.create({
             data: {
                 roleId,

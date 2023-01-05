@@ -1,5 +1,4 @@
 const { PrismaClient } = require('@prisma/client');
-//dconst { Http } = require('winston/lib/winston/transports');
 const prisma = new PrismaClient();
 
 async function listRolesPermission (uuid) {

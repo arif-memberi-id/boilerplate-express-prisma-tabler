@@ -3,7 +3,6 @@ const prisma = new PrismaClient();
 
 const LocalStrategy = require("passport-local/lib").Strategy;
 const passport = require("passport");
-//const { User } = require("../models");
 const bcrypt = require("bcrypt");
 
 module.exports.passportConfig = () => {
@@ -11,7 +10,6 @@ module.exports.passportConfig = () => {
         new LocalStrategy(
             { usernameField: "email", passwordField: "password" },
             async (email, password, done) => {
-                //const user = await User.findOne({ where: { email: email } });
                 const user = await prisma.users.findUnique({
                     where: { 
                         email: email 
@@ -42,24 +40,6 @@ module.exports.passportConfig = () => {
             }
         )
     );
-
-    /*
-    passport.serializeUser((user, done) => {
-        done(null, {id: user.id});
-    });
-
-    passport.deserializeUser(async (id, done) => {
-        //const user = await User.findByPk(id);
-        const user = await prisma.users.findFirst({
-            where: {
-                id: id,
-            }
-        })
-        if (!user) {
-            done(error, false);
-        }
-        done(null, user);
-    }); */
 
     passport.serializeUser(function(user, cb) {
         process.nextTick(function() {
